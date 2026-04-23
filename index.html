@@ -105,6 +105,38 @@ footer{text-align:center;padding:2.5rem 2rem;color:rgba(232,240,255,.45);font-si
 @keyframes confettiFall{0%{transform:translateY(0) rotateZ(0);opacity:1;}100%{transform:translateY(100vh) rotateZ(720deg);opacity:0;}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── FLOATING MUSIC BTN ── */
+#music-btn{
+  position:fixed;
+  bottom:1.4rem;
+  right:1.4rem;
+  z-index:100;
+  width:52px;height:52px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#c87941);
+  border:none;cursor:pointer;
+  font-size:1.5rem;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 20px rgba(212,169,74,.5),0 4px 16px rgba(0,0,0,.4);
+  transition:transform .2s,box-shadow .2s;
+  animation:fadeInUp .8s ease 1s both;
+}
+#music-btn:hover{transform:scale(1.12);box-shadow:0 0 32px rgba(212,169,74,.7);}
+#music-btn.playing{animation:none;}
+#music-btn .ripple{
+  position:absolute;
+  width:100%;height:100%;
+  border-radius:50%;
+  border:2px solid rgba(212,169,74,.6);
+  animation:rippleOut 1.8s ease-out infinite;
+  display:none;
+}
+#music-btn.playing .ripple{display:block;}
+@keyframes rippleOut{
+  0%{transform:scale(1);opacity:.8;}
+  100%{transform:scale(2.2);opacity:0;}
+}
 </style>
 </head>
 <body>
@@ -182,5 +214,10 @@ function closeLightbox(){document.getElementById('lightbox').classList.remove('o
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
 document.getElementById('lightbox-img').addEventListener('click',e=>e.stopPropagation());
 </script>
+
+<button id="music-btn" onclick="toggleMusic()" title="تشغيل الموسيقى">
+  <span class="ripple"></span>
+  <span id="music-icon">🎵</span>
+</button>
 </body>
 </html>
